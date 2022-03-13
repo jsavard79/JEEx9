@@ -12,6 +12,9 @@
 
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="edu.nbcc.model.Book" %>
+<%@page import="edu.nbcc.model.BookModel" %>
+<%@page import="edu.nbcc.model.ErrorModel" %>
 
 <!DOCTYPE html>
 <html>
@@ -22,9 +25,38 @@
     <body class="p-4">
         <%@include file="WEB-INF/jspf/navigation.jspf" %>
         <h1>Book Summary</h1>
-     
-        	<h2> has been deleted.</h2>	
- 
+        <%
+        	Book deletedBook = null; 
+    		Book savedBook = null;
+    		Book createdBook = null;
+    		
+    		
+        	if(request.getAttribute("deletedBook") != null){
+        		deletedBook = (Book)request.getAttribute("deletedBook");
+        	}
+        
+        	if(request.getAttribute("savedBook") != null){
+        		savedBook = (Book)request.getAttribute("savedBook");
+        	}
+        	
+        	if (request.getAttribute("createdBook") != null){
+        		createdBook = (Book)request.getAttribute("createdBook");
+        	}
+    		
+        	Book book = null;
+        	
+    		
+    		if(deletedBook != null){ %>
+     			<h2><%= deletedBook.getName() %> ID:<%= deletedBook.getId() %>   has been deleted.</h2>
+     		<%} else if (savedBook != null || createdBook != null){
+     			if(savedBook != null){
+     				book = savedBook;
+     			}
+     		
+     			if(createdBook != null) {
+     				book = createdBook;
+     			}
+%>
     	    <table class="table table-striped">                   
                     <tr>
                         <th>
@@ -41,15 +73,18 @@
                         </th>
                     </tr>
                     <tr>
-                        <td></td>
-                        <td></td>                               
-                        <td></td>
-                        <td></td>
+                        <td><%=book.getId() %></td>
+                        <td><%=book.getName() %></td>                               
+                        <td><%=book.getPrice() %></td>
+                        <td><%=book.getTerm() %></td>
                     </tr>
                 </table>
-    	   
+                
+                <%} else { %>
     	
     	 <a href="/books"> books</a>
+    	 
+    	 <% } %>
       
        
     </body>
