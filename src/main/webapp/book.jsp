@@ -59,9 +59,9 @@
 				<% for(int i: vm.getTerms()){
 					if (vm.getBook() != null && vm.getBook().getTerm() == i) {
 					%>
-					 <input type="radio" name="bookTerm" value="${i}" checked /> Term <%= i %>
+					 <input type="radio" name="bookTerm" value="<%= i %>" checked /> Term <%= i %>
 					<% } else { %>
-					<input type="radio" name="bookTerm" value="${i}" /> Term <%= i %>
+					<input type="radio" name="bookTerm" value="<%= i %>" /> Term <%= i %>
 					<%
 					}
 				}
